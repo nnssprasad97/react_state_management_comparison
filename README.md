@@ -10,14 +10,14 @@ The objective is to build an identical, premium Shopping Cart application across
 
 ## 🏗️ Repository Structure
 
-- `base-app/`: The initial scaffolded application containing the dummy data and CSS.
-- `context-version/`: The Naive Context API implementation (single context causing widespread re-renders).
-- `context-version-optimized/`: The Optimized Context API implementation (split contexts to isolate state changes).
-- `zustand-version/`: The Zustand implementation, demonstrating hook-based minimal-boilerplate state management.
-- `redux-version/`: The Redux Toolkit implementation, showcasing structured, slice-based state management.
-- `profiling/`: React DevTools flamegraph screenshots for performance comparison.
-- `bundle-analysis/`: Bundle visualizer screenshots for size comparison.
-- `RESULTS.md`: Comprehensive breakdown of metrics, trade-offs, and final architectural recommendations.
+- [`base-app/`](./base-app): The initial scaffolded application containing the dummy data and CSS.
+- [`context-version/`](./context-version): The Naive Context API implementation (single context causing widespread re-renders).
+- [`context-version-optimized/`](./context-version-optimized): The Optimized Context API implementation (split contexts to isolate state changes).
+- [`zustand-version/`](./zustand-version): The Zustand implementation, demonstrating hook-based minimal-boilerplate state management.
+- [`redux-version/`](./redux-version): The Redux Toolkit implementation, showcasing structured, slice-based state management.
+- [`profiling/`](./profiling): React DevTools flamegraph screenshots for performance comparison.
+- [`bundle-analysis/`](./bundle-analysis): Bundle visualizer screenshots for size comparison.
+- [`RESULTS.md`](./RESULTS.md): Comprehensive breakdown of metrics, trade-offs, and final architectural recommendations.
 - `docker-compose.yml` & `Dockerfile`: Standardized environment for running the production build of the Redux variant.
 
 ## 🚀 Instructions & Reproducibility
@@ -52,7 +52,15 @@ To test a standardized production build of the Redux Toolkit version:
 Each variant can be built using `npm run build`. To analyze the bundle, you can install `rollup-plugin-visualizer` into the `vite.config.js` of any variant and generate a visual treemap of the bundle size.
 
 ## 🧪 Testing & Code Quality
-While explicit unit tests (Jest/Vitest) were not the primary focus of this benchmark, the application enforces strict React patterns (Hooks, Context, pure components) and maintains functional parity across all 3 variants to ensure the comparison is 1:1. 
+While state management architectures heavily influence code quality, testing acts as the ultimate verifier. The repository includes an example of a robust unit test suite configured via **Vitest**.
+- **Redux Toolkit Test**: See [`redux-version/src/store/cartSlice.test.js`](./redux-version/src/store/cartSlice.test.js) for an example of how isolated logic tests are written for Redux reducers.
+- To run the tests:
+  ```bash
+  cd redux-version
+  npm install
+  npm test
+  ```
+The application enforces strict React patterns (Hooks, Context, pure components) and maintains functional parity across all 3 variants to ensure the comparison is 1:1. 
 
 ## 📊 Results Summary
 The full, in-depth analysis is documented in [RESULTS.md](./RESULTS.md). 
