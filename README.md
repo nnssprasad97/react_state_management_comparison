@@ -1,5 +1,7 @@
 # React State Management Comparison: Context API vs. Zustand vs. Redux Toolkit
 
+> **A production-ready technical benchmark evaluating React state management architectures.** This repository presents a premium e-commerce application implemented identically across Context API, Zustand, and Redux Toolkit. It provides an empirical analysis of render optimization, bundle size footprints, and developer experience to guide architectural decision-making for scalable frontend applications.
+
 ## 🎯 Overview & Objectives
 This project is an advanced frontend development exercise designed to benchmark three of the most popular state management solutions in the React ecosystem: **React Context API**, **Zustand**, and **Redux Toolkit (RTK)**.
 
