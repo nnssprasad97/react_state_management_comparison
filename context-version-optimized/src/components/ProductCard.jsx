@@ -1,0 +1,38 @@
+import React, { useRef, useEffect, useContext } from 'react';
+import { CartContext } from '../context/SplitContexts';
+
+export default function ProductCard({ product }) {
+  const renderCount = useRef(0);
+  const { dispatch } = useContext(CartContext);
+  
+  useEffect(() => {
+    renderCount.current += 1;
+  });
+
+  const handleAddToCart = () => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
+
+  return (
+    <div className="product-card">
+      <div className="product-image-container">
+        <img src={product.image} alt={product.name} className="product-image" />
+      </div>
+      <div className="product-details">
+        <h3 className="product-title">{product.name}</h3>
+        <p className="product-description">{product.description}</p>
+        <div className="product-footer">
+          <span className="product-price">${product.price.toFixed(2)}</span>
+          <button className="btn-primary" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        </div>
+        <div style={{ marginTop: '1rem', textAlign: 'right' }}>
+          <span className="render-counter" data-testid="render-count">
+            ProductCard: {renderCount.current}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
