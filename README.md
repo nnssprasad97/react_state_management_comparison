@@ -64,8 +64,27 @@ While state management architectures heavily influence code quality, testing act
   ```
 The application enforces strict React patterns (Hooks, Context, pure components) and maintains functional parity across all 3 variants to ensure the comparison is 1:1. 
 
-## 📊 Results Summary
-The full, in-depth analysis is documented in [RESULTS.md](./RESULTS.md). 
-- **Zustand** emerged as the most lightweight and performant out-of-the-box solution.
-- **Redux Toolkit** provided the best structure for large-scale applications but required more boilerplate and bundle size.
-- **Context API** is excellent for simple, low-frequency updates, but requires careful architecture (splitting contexts) to avoid severe performance degradation.
+## 📊 Results Summary & Metrics
+
+Below is a snapshot of our final benchmarks comparing render efficiency and bundle footprints. For the full deep-dive and decision guide, please read [RESULTS.md](./RESULTS.md).
+
+### Benchmark Comparison Table
+
+| Metric | Context (naive) | Context (split) | Zustand | Redux Toolkit |
+| :--- | :--- | :--- | :--- | :--- |
+| **Render Efficiency** | 🔴 Cascading | 🟢 Isolated | 🟢 Isolated | 🟢 Isolated |
+| **Bundle Size Impact**| 0 KB (Built-in) | 0 KB (Built-in) | ~1.1 KB | ~3.1 KB |
+| **Boilerplate Cost**  | Minimal | Medium | Minimal | High |
+| **Final Verdict**     | **Avoid** | **Good** | **Best for 80%** | **Best for Scale**|
+
+### Visual Proof
+
+#### Profiling Highlights
+*(Example: Redux Toolkit Flamegraph showing isolated component updates)*
+![Redux Toolkit Profile](./profiling/redux-toolkit-profile.png)
+
+#### Bundle Analysis
+*(Example: Zustand's minimal ~1KB bundle footprint)*
+![Zustand Bundle](./bundle-analysis/zustand-bundle.png)
+
+> **Live Demos**: To be deployed to Vercel. For now, pull the repository and run `npm run dev` in any folder, or use the root `docker-compose up` for the Redux production build.

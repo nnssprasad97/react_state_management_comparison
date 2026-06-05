@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        directory: [base-app, context-version, context-version-optimized, zustand-version, redux-version]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'npm'
+        cache-dependency-path: ${{ matrix.directory }}/package-lock.json
+        
+    - name: Install Dependencies
+      working-directory: ${{ matrix.directory }}
+      run: npm ci
+      
+    - name: Run Linter (if applicable)
+      working-directory: ${{ matrix.directory }}
+      run: npm run lint --if-present
+      
+    - name: Run Tests (if applicable)
+      working-directory: ${{ matrix.directory }}
+      run: npm run test --if-present
+      
+    - name: Build Application
+      working-directory: ${{ matrix.directory }}
+      run: npm run build
